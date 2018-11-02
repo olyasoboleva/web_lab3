@@ -1,0 +1,38 @@
+body{
+    background-image: url(#{resource[ 'images/cat.png' ]});
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+}
+.header_1, .header_2, .container, #clock{
+    width: 800px;
+    border-radius: 15px;
+    background-color: rgba(238, 253, 247, 0.9);
+    font-family: monospace;
+    color: #000000;
+    border: 1px solid blue;
+    filter: alpha(Opacity=70);
+}
+
+.header_1 {
+    height: 65px;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.header_2 {
+    height: 45px;
+    font-size: 25pt;
+}
+
+.container {
+    font-size: 30px;
+    height: 450px;
+}
+
+#clock {
+    height: 20px;
+    font-size: 10pt;
+}
