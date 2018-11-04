@@ -58,8 +58,8 @@
                                     <tr>
                                         <td>
                                             <h:panelGrid>
-                                                <p:inputText id="X" value="kek" />
-                                                <p:slider  style="width: 1000px; height:367px" for="X" minValue="-4" maxValue="4" step="1" />
+                                                <p:inputText id="X" value="1" />
+                                                <p:slider  display="output"  type="horizontal" for="X" minValue="-4" maxValue="4" step="1" onSlide="1" onSlideStart="2" onSlideEnd="6" styleClass="width-100" />
                                             </h:panelGrid>
                                         </td>
                                     </tr>
@@ -71,7 +71,11 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <ace:sliderEntry id="R" min="1" max="4"  />
+                                            <ace:sliderEntry style="margin-top: 10px;" id="R" value="#{point.r}"
+                                                             min="1" max="4" stepPercent="16.6666666" length="200" showLabels="false">
+                                                <ace:ajax event="slide" render="rValue" execute="R" />
+                                                <ace:ajax execute="R" render="table" />
+                                            </ace:sliderEntry>
                                         </td>
                                     </tr>
 

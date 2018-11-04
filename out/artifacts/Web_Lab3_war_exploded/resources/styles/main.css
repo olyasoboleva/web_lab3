@@ -17,8 +17,8 @@ body{
 }
 
 .header_1 {
-    height: 65px;
-    font-size: 30px;
+    height: 55px;
+    font-size: 25px;
     margin-bottom: 15px;
 }
 
@@ -33,6 +33,11 @@ body{
 }
 
 #clock {
-    height: 20px;
-    font-size: 10pt;
+    height: 50px;
+    font-size: 20pt;
+}
+
+.table_header_2 td {
+    text-align: center;
+    font-size: 18pt;
 }

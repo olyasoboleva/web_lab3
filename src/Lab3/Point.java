@@ -1,16 +1,47 @@
 package Lab3;
 
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.persistence.*;
 import java.io.Serializable;
 
-//@ManagedBean(name = "point")
-//@SessionScoped
+
+@ManagedBean
+@SessionScoped
+@Entity
+@Table(name = "points")
 public class Point implements Serializable{
-/*
-   // @ManagedProperty(value = "#{initParam.}" name = "X")
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    int id;
+    @Column(name = "X")
     double X;
+    @Column(name = "Y")
     double Y;
+    @Column(name = "R")
     double R;
+    @Column(name = "IsInArea")
+    boolean isInArea;
+
+    public Point() {}
+
+    public Point(double x, double y, double r, boolean isInArea) {
+        X = x;
+        Y = y;
+        R = r;
+        this.isInArea = isInArea;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public double getX() {
         return X;
@@ -36,5 +67,11 @@ public class Point implements Serializable{
         R = r;
     }
 
-*/
+    public boolean isInArea() {
+        return isInArea;
+    }
+
+    public void setInArea(boolean inArea) {
+        isInArea = inArea;
+    }
 }
