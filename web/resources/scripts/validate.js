@@ -10,18 +10,27 @@ var generateError = function (text) {
     return error;
 };
 
-var removeValidation = function () {
-    var errors = form.querySelectorAll('.error');
-    for (var i = 0; i < errors.length; i++) {
-        errors[i].parentElement.removeChild(errors[i]);
+function validateY(input) {
+    var str2 = parseFloat(input);
+    str2 = str2.toString();
+    var error = document.getElementById("error");
+    if (input!==str2){
+        error.innerHTML = "Некорректное значение Y!";
+        return false;
+    } else {
+        return true;
     }
+}
+
+function removeError() {
+    var error = document.getElementById("error");
+    error.innerHTML = "";
 };
 
 function validate(x,y1,r) {
     var check_Y = true;
     var point = false;
     var y = y1;
-    removeValidation();
     if (y.indexOf(",") !== -1) {
         y = y.replace(",",".");
         point = true;
@@ -31,7 +40,6 @@ function validate(x,y1,r) {
         document.getElementById("rowY").insertBefore(error, null);
         check_Y = false;
     }
-
     if (check_Y) {
         drawCanvas('canvas', r);
         drawPoint( x, y, r);
@@ -49,16 +57,27 @@ function validate(x,y1,r) {
 function drawAllPoints(r) {
     var x,y;
     var counter=0;
+    var table = document.getElementById('beanTable');
     drawCanvas('canvas',r);
-    document.getElementById('beanTable').querySelectorAll('td').forEach(function(e) {
-        switch (counter){
-            case 0: x = e.innerHTML; break;
-            case 1: y = e.innerHTML; break;
-            case 2: break;
-            case 3: drawPoint(x,y,r); counter -= 4; break;
-        }
-        counter++;
-    });
+    if (!(table===null)) {
+        table.querySelectorAll('td').forEach(function (e) {
+            switch (counter) {
+                case 0:
+                    x = e.innerHTML;
+                    break;
+                case 1:
+                    y = e.innerHTML;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    drawPoint(x, y, r);
+                    counter -= 4;
+                    break;
+            }
+            counter++;
+        });
+    }
 }
 
 //------------canvas-------------

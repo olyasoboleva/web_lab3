@@ -17,7 +17,7 @@
     <h:outputScript library="scripts" name="validate.js"/>
 </h:head>
 
-<h:body onload="drawAllPoints('#{point.r}')">
+<h:body onload="drawAllPoints(2)">
     <f:view>
         <center>
             <div class="header_1">
@@ -51,7 +51,7 @@
                             </div>
                         </td>
                         <td>
-                            <h:form class="form" id="form" action="controller" method="post" onsubmit="return validate('#{point.x}','#{point.y}', '#{point.r}')">
+                            <h:form class="form" id="form" method="post">
                                 <table>
                                     <tr>
                                         <td><label id="choose"> Выбор значений:</label></td>
@@ -78,9 +78,17 @@
                                     <tr>
                                         <td id="rowY">
                                             <h:outputLabel class="label" value="&#8226; Координата Y: " /><br/>
-                                            <h:inputText class="input_Y" id="Y" a:placeholder="(-5;3)"  maxlength="6" name="Y" value="#{point.y}">
-                                                <f:validateDoubleRange maximum="3" minimum="-5"/>
-                                            </h:inputText>
+                                            <h:inputText class="input_Y" id="Y" a:placeholder="(-5;3)"  maxlength="6" name="Y"
+                                                         value="#{point.y}" required="true" requiredMessage="Введите значение Y!"
+                                                         validatorMessage="Значение от -5 до 3!" onfocus="removeError();" onblur="validateY(this.value);">
+                                                <f:validateDoubleRange maximum="3" minimum="-5" for="Y" />
+                                            </h:inputText><br/>
+                                            <div>
+                                                <h:message id="m1" for="Y" style="color:red"/>
+                                            </div>
+                                            <div id="error">
+                                                <br/>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
