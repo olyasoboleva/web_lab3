@@ -1,7 +1,4 @@
 var form = document.querySelector('.form');
-var y_form = form.querySelector('.input_Y');
-var r_form = form.querySelector('.input_R');
-var x_form = form.querySelector('.x_input');
 
 var generateError = function (text) {
     var error = document.createElement('div');
@@ -17,51 +14,30 @@ var removeValidation = function () {
     }
 };
 
-function validate_R() {
-    var form = document.querySelector('.form');
-    var r_form = form.querySelector('.input_R');
-    var check = true;
-    removeValidation();
-    if (r_form.value.indexOf(",") !== -1) {
-        r_form.value = r_form.value.replace(",",".");
-    }
-    if (!r_form.value || r_form.value <= 1 || r_form.value >= 4 || isNaN(r_form.value) || r_form.value.charAt(0).localeCompare(".") === 0) {
-        var error = generateError('Некорректно задано значение R. R ∈ (1;4). R должно быть числом.');
-        r_form.parentElement.insertBefore(error, null);
-        check = false;
-    }
-    return check;
-}
-
-function validate() {
+function validate(x,y1,r) {
     var check_Y = true;
     var point = false;
-    var point_r = false;
+    var y = y1;
     removeValidation();
-    if (y_form.value.indexOf(",") !== -1) {
-        y_form.value = y_form.value.replace(",",".");
+    if (y.indexOf(",") !== -1) {
+        y = y.replace(",",".");
         point = true;
     }
-    if (r_form.value.indexOf(",") !== -1) {
-        r_form.value = r_form.value.replace(",",".");
-        point_r = true;
-    }
-    var check_r = validate_R();
-    if (!y_form.value || y_form.value <= -5 || y_form.value >= 5 || isNaN(y_form.value) || y_form.value.charAt(0).localeCompare(".") === 0) {
-        var error = generateError('Некорректно задано значение Y. Y ∈ (-5;5). Y должно быть числом.');
-        y_form.parentElement.insertBefore(error, null);
+    if (!y || y <= -5 || y >= 3 || isNaN(y) || y.charAt(0).localeCompare(".") === 0) {
+        var error = generateError('Некорректно задано значение Y. Y ∈ (-5;3). Y должно быть числом.');
+        document.getElementById("rowY").insertBefore(error, null);
         check_Y = false;
     }
 
-    if (check_r && check_Y) {
-        drawCanvas('canvas', r_form.value);
-        drawPoint( x_form.value, y_form.value, r_form.value, 4);
+    if (check_Y) {
+        drawCanvas('canvas', r);
+        drawPoint( x, y, r);
+        /*
         if (point) {
             y_form.value = y_form.value.replace(".",",");
         }
-        if (point_r) {
-            r_form.value = r_form.value.replace(".",",");
-        }
+        ??????????????????????????????????????????????????????????
+        */
         form.submit();
         return true;
     } else return false;
@@ -142,7 +118,7 @@ function drawCanvas(id, r){
     context.lineTo(155, 215);
     context.moveTo(145, 280);
     context.lineTo(155, 280);
-    if (r==0){
+    if (r === 0){
         context.fillText("R", 160, 25);
         context.fillText("R/2", 160, 90);
         context.fillText("-R/2", 160, 220);
@@ -163,7 +139,7 @@ function drawCanvas(id, r){
     context.lineTo(215, 155);
     context.moveTo(280, 145);
     context.lineTo(280, 155);
-    if (r==0){
+    if (r===0){
         context.fillText("-R", 12, 140);
         context.fillText("-R/2", 70, 140);
         context.fillText("R/2", 205, 140);
@@ -181,6 +157,7 @@ function drawCanvas(id, r){
     context.stroke();
 }
 
+//оно используется?
 function createCanvas(id, x, y, r){
     drawCanvas(id, r);
     context.beginPath();
@@ -192,7 +169,7 @@ function createCanvas(id, x, y, r){
     context.stroke();
 }
 
-function clickCanvas(){
+function clickCanvas(r){
     var canvas = document.getElementById('canvas');
     var br = canvas.getBoundingClientRect();
     var left = br.left;
@@ -200,41 +177,39 @@ function clickCanvas(){
     var event = window.event;
     var x = event.clientX-left;
     var y = event.clientY-top;
-    document.getElementById("R").value = document.getElementById("R").value.replace(",",".");
-    var r = document.getElementById("R").value;
     var size = canvas.height;
-    if (validate_R()) {
-        x = Math.round((x - size / 2) * r * 10 / 2 / 65) / 10;
-        y = Math.round((-y + size / 2) * r * 10 / 2 / 65) / 10;
-        drawCanvas('canvas',r);
-        document.getElementById("Y").value = y;
-        checkX(x);
-        drawPoint(x, y, r, size);
-        document.getElementById('button').click();
-    }
+    x = Math.round((x - size / 2) * r * 10 / 2 / 65) / 10;
+    y = Math.round((-y + size / 2) * r * 10 / 2 / 65) / 10;
+    drawCanvas('canvas',r);
+    //x_form.value = x;????????????????????????????????????????????????????????????
+    //y_form.value = y;
+    //r_form.value = r;
+    drawPoint(x, y, r);
+    document.getElementById('button').click();
 }
 
 function drawPoint(x,y,r){
+    var color = 'red';
     var canvas = document.getElementById('canvas'),
         ctx = canvas.getContext("2d");
-
+    if (isArea(x,y,r)) color = 'green';
     ctx.beginPath();
     ctx.arc(150+x*130/r,150-y*130/r,2,0,2*Math.PI);
-        ctx.fillStyle = "red";
+    ctx.fillStyle = color;
     ctx.fill();
     ctx.closePath();
 }
-/*
+
 function isArea(x, y, r) {
     x = 150+x*130/r;
     y = 150-y*130/r;
     if (
-        ((x >= 0) && (y <= 0) && (y >= -r)  && (x <= r)) ||
-        ((x <= 0) && (y >= 0) && ((x * x + y * y) <= (r * r))) ||
-        ((x <= 0) && (y <= 0) && (y <= (r / 2) * x + r))  // и тут тоже треугольник надо
+        ((x >= 0) && (y >= 0) && (y <= (r-x)/2)) ||
+        ((x <= 0) && (y >= 0) && ((x * x + y * y) <= (r * r / 4))) ||
+        ((x <= 0) && (y <= 0) && (x >= -2) && (y >= -2))
     ) {
-        return 'true';
+        return true;
     }
-    return 'false';
+    return false;
 
-}*/
+}

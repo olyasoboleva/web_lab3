@@ -42,38 +42,46 @@
 
             <br/>
             <div class="container form" id="inputs">
+                <h:button value="Стартовая" outcome="index"/>
                 <table class = "input_table">
                     <tr>
                         <td>
                             <div>
-                                <canvas id="canvas" onclick="clickCanvas()" style="background-color:#ffffff; border-radius: 20px;" width="300" height="300"/>
+                                <canvas id="canvas" onclick="clickCanvas(#{point.r})" style="background-color:#ffffff; border-radius: 20px;" width="300" height="300"/>
                             </div>
                         </td>
                         <td>
-                            <h:form class="form" id="form" action="controller" method="post" onsubmit="return validate();">
+                            <h:form class="form" id="form" action="controller" method="post" onsubmit="return validate('#{point.x}','#{point.y}', '#{point.r}')">
                                 <table>
                                     <tr>
                                         <td><label id="choose"> Выбор значений:</label></td>
                                     </tr>
                                     <tr>
                                         <td>
+                                            <h:outputLabel class="label" value="&#8226; Координата X: "/>
+                                            <h:outputText class="x_input" id="X_text" value="#{point.x}"/>
                                             <h:panelGrid>
-                                                <p:inputText id="X" value="1" />
-                                                <p:slider  display="output"  type="horizontal" for="X" minValue="-4" maxValue="4" step="1" onSlide="1" onSlideStart="2" onSlideEnd="6" styleClass="width-100" />
+                                                <p:inputText id="X"  />
+                                                <p:slider value="#{point.x}" display="output"  type="horizontal" for="X" minValue="-4" maxValue="4" step="1" onSlide="1" onSlideStart="2" onSlideEnd="6" styleClass="width-100" />
                                             </h:panelGrid>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td>
-                                            <h:inputText id ="Y" a:placeholder="(-5;3)"  maxlength="6" name="Y" />
+                                        <td id="rowY">
+                                            <h:outputLabel class="label" value="&#8226; Координата Y: " /><br/>
+                                            <h:inputText class="input_Y" id="Y" a:placeholder="(-5;3)"  maxlength="6" name="Y" value="#{point.y}">
+                                                <f:validateDoubleRange maximum="3" minimum="-5"/>
+                                            </h:inputText>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
+                                            <h:outputLabel class="label" value="&#8226; Радиус R: " />
+                                            <h:outputText class="input_R" id="R_text" value="#{point.r}"/>
                                             <ace:sliderEntry style="margin-top: 10px;" id="R" value="#{point.r}"
                                                              min="1" max="4" stepPercent="16.6666666" length="200" showLabels="false">
-                                                <ace:ajax event="slide" render="rValue" execute="R" />
+                                                <ace:ajax event="slide" render="R_text" execute="R" />
                                                 <ace:ajax execute="R" render="table" />
                                             </ace:sliderEntry>
                                         </td>
@@ -81,7 +89,7 @@
 
                                     <tr >
                                         <td>
-                                            <h:button type="submit" value="Проверить" action=""/>
+                                            <h:commandButton id="submit" action="#{point.addPoint()}" value="ПРОВЕРИТЬ" onclick="window.reload()"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -93,6 +101,36 @@
                     </tr>
                 </table>
             </div>
+
+            <br/>
+
+            <h:panelGroup rendered="#{not empty point.points}">
+                <div class="container">
+                    <h:outputScript>
+                        drawCanvas('canvas','#{point.r}');
+                    </h:outputScript>
+                    <label> Результаты:</label>
+                    <table id="beanTable">
+                        <tr>
+                            <td>X</td>
+                            <td>Y</td>
+                            <td>R</td>
+                            <td>Hit</td>
+                        </tr>
+                        <ui:repeat value="#{point.points}" var="item">
+                            <tr>
+                                <td>#{item.x}</td>
+                                <td>#{item.y}</td>
+                                <td>#{item.r}</td>
+                                <td>#{item.inArea}</td>
+                                <h:outputScript>
+                                    drawPoint('#{item.x}','#{item.x}','#{item.x}');
+                                </h:outputScript>
+                            </tr>
+                        </ui:repeat>
+                    </table>
+                </div>
+            </h:panelGroup>
         </center>
     </f:view>
 </h:body>

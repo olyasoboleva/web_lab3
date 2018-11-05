@@ -3,9 +3,13 @@ package Lab3;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+@ManagedBean(name = "point")
+@SessionScoped
 public class PointService implements Serializable {
     double x;
     double y;
@@ -46,29 +50,32 @@ public class PointService implements Serializable {
     }
 
     public boolean isInArea() {
+        isArea();
         return isInArea;
     }
 
-    public void setInArea() {
-        isInArea = isArea(x,y,r);
+    public void setInArea(boolean inArea) {
+        isInArea = inArea;
     }
 
-    public boolean isArea (double x, double y, double r) {
+    public void isArea () {
         if ((x >= 0) && (y >= 0) && (y <= -x/2 + 0.5)) {
-            return true;
+            isInArea = true;
+        } else {
+            if ((x <= 0) && (y >= 0) && ((x * x + y * y) <= r * r / 4)) {
+                isInArea = true;
+            } else {
+                if ((x <= 0) && (y <= 0) && (x >= -r) && (y >= -r)) {
+                    isInArea = true;
+                } else {
+                    isInArea = false;
+                }
+            }
         }
-        if ((x <= 0) && (y >= 0) && ((x*x + y*y) <= r*r/4)) {
-            return true;
-        }
-        if ((x <= 0) && (y <= 0) && (x >= -r) && (y >= -r)) {
-            return true;
-        }
-        return false;
     }
 
-    public void addPoint(double x, double y, double r ) {
-        isInArea = isArea(x,y,r);
-        Point point = new Point(x,y,r,isInArea);
+    public void addPoint() {
+        Point point = new Point(getX(),getY(),getR(),isInArea());
         points.add(point);
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();

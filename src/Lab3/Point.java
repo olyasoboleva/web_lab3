@@ -1,14 +1,8 @@
 package Lab3;
 
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
-@ManagedBean
-@SessionScoped
 @Entity
 @Table(name = "points")
 public class Point implements Serializable{
