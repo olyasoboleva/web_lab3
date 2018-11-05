@@ -17,7 +17,7 @@
     <h:outputScript library="scripts" name="validate.js"/>
 </h:head>
 
-<h:body onload="drawCanvas('canvas',2)">
+<h:body onload="drawAllPoints('#{point.r}')">
     <f:view>
         <center>
             <div class="header_1">
@@ -57,6 +57,7 @@
                                         <td><label id="choose"> Выбор значений:</label></td>
                                     </tr>
                                     <tr>
+                                        <!--
                                         <td>
                                             <h:outputLabel class="label" value="&#8226; Координата X: "/>
                                             <h:outputText class="x_input" id="X_text" value="#{point.x}"/>
@@ -64,6 +65,13 @@
                                                 <p:inputText id="X"  />
                                                 <p:slider value="#{point.x}" display="output"  type="horizontal" for="X" minValue="-4" maxValue="4" step="1" onSlide="1" onSlideStart="2" onSlideEnd="6" styleClass="width-100" />
                                             </h:panelGrid>
+                                        </td>
+                                        -->
+                                        <td id="rowX">
+                                            <h:outputLabel class="label" value="&#8226; Координата X: " /><br/>
+                                            <h:inputText class="x_input" id="X" a:placeholder="(-5;3)"  maxlength="6" name="X" value="#{point.x}">
+                                                <f:validateDoubleRange maximum="3" minimum="-5"/>
+                                            </h:inputText>
                                         </td>
                                     </tr>
 
@@ -76,6 +84,7 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <!--
                                         <td>
                                             <h:outputLabel class="label" value="&#8226; Радиус R: " />
                                             <h:outputText class="input_R" id="R_text" value="#{point.r}"/>
@@ -85,11 +94,18 @@
                                                 <ace:ajax execute="R" render="table" />
                                             </ace:sliderEntry>
                                         </td>
+                                        -->
+                                        <td id="rowR">
+                                            <h:outputLabel class="label" value="&#8226; Координата R: " /><br/>
+                                            <h:inputText class="input_R" id="R" a:placeholder="(-5;3)"  maxlength="6" name="R" value="#{point.r}" onkeypress="drawAllPoints('#{point.r}');">
+                                                <f:validateDoubleRange maximum="4" minimum="1"/>
+                                            </h:inputText>
+                                        </td>
                                     </tr>
 
                                     <tr >
                                         <td>
-                                            <h:commandButton id="submit" action="#{point.addPoint()}" value="ПРОВЕРИТЬ" onclick="window.reload()"/>
+                                            <h:commandButton id="submit" action="#{point.addPoint()}" value="ПРОВЕРИТЬ" onclick="window.location.reload()"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -106,16 +122,16 @@
 
             <h:panelGroup rendered="#{not empty point.points}">
                 <div class="container">
-                    <h:outputScript>
+                    <h:outputScript name="scripts/validate.js">
                         drawCanvas('canvas','#{point.r}');
                     </h:outputScript>
                     <label> Результаты:</label>
                     <table id="beanTable">
                         <tr>
-                            <td>X</td>
-                            <td>Y</td>
-                            <td>R</td>
-                            <td>Hit</td>
+                            <th>X</th>
+                            <th>Y</th>
+                            <th>R</th>
+                            <th>Hit</th>
                         </tr>
                         <ui:repeat value="#{point.points}" var="item">
                             <tr>
@@ -123,7 +139,7 @@
                                 <td>#{item.y}</td>
                                 <td>#{item.r}</td>
                                 <td>#{item.inArea}</td>
-                                <h:outputScript>
+                                <h:outputScript name="scripts/validate.js">
                                     drawPoint('#{item.x}','#{item.x}','#{item.x}');
                                 </h:outputScript>
                             </tr>

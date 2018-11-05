@@ -7,7 +7,7 @@ function setTime() {
     let month = date.getMonth();
     let day = date.getDay();
     document.getElementById("clock").innerHTML = "Дата: " + formatDate(day) + "." + formatDate(month) + "." + year
-        + "\nВремя: " + formatDate(hours) + ":" + formatDate(minutes) + ":" + formatDate(sec);
+        + "<br/>Время: " + formatDate(hours) + ":" + formatDate(minutes) + ":" + formatDate(sec);
     let time = setTimeout(setTime, 6000);
 }
 

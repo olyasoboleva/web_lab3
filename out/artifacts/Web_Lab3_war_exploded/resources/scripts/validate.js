@@ -1,4 +1,7 @@
 var form = document.querySelector('.form');
+var x_form = document.getElementById("form:X");
+var y_form = document.getElementById("form:Y");
+var r_form = document.getElementById("form:R");
 
 var generateError = function (text) {
     var error = document.createElement('div');
@@ -43,7 +46,20 @@ function validate(x,y1,r) {
     } else return false;
 }
 
-
+function drawAllPoints(r) {
+    var x,y;
+    var counter=0;
+    drawCanvas('canvas',r);
+    document.getElementById('beanTable').querySelectorAll('td').forEach(function(e) {
+        switch (counter){
+            case 0: x = e.innerHTML; break;
+            case 1: y = e.innerHTML; break;
+            case 2: break;
+            case 3: drawPoint(x,y,r); counter -= 4; break;
+        }
+        counter++;
+    });
+}
 
 //------------canvas-------------
 
@@ -178,21 +194,27 @@ function clickCanvas(r){
     var x = event.clientX-left;
     var y = event.clientY-top;
     var size = canvas.height;
-    x = Math.round((x - size / 2) * r * 10 / 2 / 65) / 10;
-    y = Math.round((-y + size / 2) * r * 10 / 2 / 65) / 10;
-    drawCanvas('canvas',r);
-    //x_form.value = x;????????????????????????????????????????????????????????????
-    //y_form.value = y;
-    //r_form.value = r;
-    drawPoint(x, y, r);
-    document.getElementById('button').click();
+    if (r>0) {
+        x = Math.round((x - size / 2) * r * 10 / 2 / 65) / 10;
+        y = Math.round((-y + size / 2) * r * 10 / 2 / 65) / 10;
+        drawCanvas('canvas', r);
+        x_form.value = x;
+        y_form.value = y;
+        r_form.value = r;
+        drawPoint(x, y, r);
+        //document.getElementById('form:submit').click();
+    }
 }
 
 function drawPoint(x,y,r){
-    var color = 'red';
+    var color;
     var canvas = document.getElementById('canvas'),
         ctx = canvas.getContext("2d");
-    if (isArea(x,y,r)) color = 'green';
+    if (isArea(x,y,r)) {
+        color = 'green';
+    } else {
+        color = 'red';
+    }
     ctx.beginPath();
     ctx.arc(150+x*130/r,150-y*130/r,2,0,2*Math.PI);
     ctx.fillStyle = color;
@@ -201,8 +223,6 @@ function drawPoint(x,y,r){
 }
 
 function isArea(x, y, r) {
-    x = 150+x*130/r;
-    y = 150-y*130/r;
     if (
         ((x >= 0) && (y >= 0) && (y <= (r-x)/2)) ||
         ((x <= 0) && (y >= 0) && ((x * x + y * y) <= (r * r / 4))) ||
