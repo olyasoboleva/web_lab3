@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+<h:head>
+    <title>Lab_3</title>
+    <h:outputStylesheet library="styles" name="main.css"/>
+    <link rel="stylesheet" href="resources/styles/main.css" type="text/css" />
+    <h:outputScript library="scripts" name="validate.js"/>
+</h:head>
+
+<h:body onload="drawAllPoints(2)">
+    <f:view>
+        <center>
+            <div class="header_1">
+                <table class="table_header_1">
+                    <tr>
+                        <!-- <td><a href="https://se.ifmo.ru/documents"> <img name="vt_image" src="./images/vt_logo.png"> </a></td>-->
+                        <td ><label> Лабораторная работа № 3 </label></td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="header_2">
+                <table class="table_header_2">
+                    <tr>
+                        <td>Группа P3212</td>
+                        <td ><a href="https://isu.ifmo.ru/pls/apex/f?p=2143:3:102153591906187::NO:RP:PID:242361">  Редькина Ирина/</a><a href="https://isu.ifmo.ru/pls/apex/f?p=2143:3:115928066281303::NO:RP:PID:243887">Соболева Ольга  </a>  </td>
+                        <td> Вариант 8130</td>
+                    </tr>
+                </table>
+            </div>
+
+            <br/>
+            <div class="container form" id="inputs">
+                <h:button value="Стартовая" outcome="index"/>
+                <table class = "input_table">
+                    <tr>
+                        <td>
+                            <div>
+                                <canvas id="canvas" onclick="clickCanvas(#{point.r})" style="background-color:#ffffff; border-radius: 20px;" width="300" height="300"/>
+                            </div>
+                        </td>
+                        <td>
+                            <h:form class="form" id="form" method="post">
+                                <table>
+                                    <tr>
+                                        <td><label id="choose"> Выбор значений:</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="rowX">
+                                            <h:outputLabel class="label" value="&#8226; Координата X: "/>
+                                            <h:outputText class="x_input" id="X_text" value="#{point.x}"/>
+                                            <!--<h:panelGrid>
+                                                <p:inputText id="X"  />
+                                                <p:slider  minValue="-4" maxValue="4" step="1" styleClass="width-100" />-->
+                                            <!--</h:panelGrid>-->
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td id="rowY">
+                                            <h:outputLabel class="label" value="&#8226; Координата Y: " /><br/>
+                                            <h:inputText class="input_Y" id="Y" a:placeholder="(-5;3)"  maxlength="6" name="Y"
+                                                         value="#{point.y}" required="true" requiredMessage="Введите значение Y!"
+                                                         validatorMessage="Значение от -5 до 3!" onfocus="removeError();" onblur="validateY(this.value);">
+                                                <f:validateDoubleRange maximum="3" minimum="-5" for="Y" />
+                                            </h:inputText><br/>
+                                            <div>
+                                                <h:message id="m1" for="Y" style="color:red"/>
+                                            </div>
+                                            <div id="error">
+                                                <br/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputLabel class="label" value="&#8226; Радиус R: " />
+                                            <h:outputText class="input_R" id="R_text" value="#{point.r}"/>
+                                            <ace:sliderEntry style="margin-top: 10px;" id="R" value="#{point.r}"
+                                                             min="1" max="4" stepPercent="16.6666666" length="200" showLabels="false">
+                                                <ace:ajax event="slide" render="R_text" execute="R" />
+                                                <ace:ajax execute="R" render="table" />
+                                            </ace:sliderEntry>
+                                        </td>
+                                    </tr>
+
+                                    <tr >
+                                        <td>
+                                            <h:commandButton id="submit" action="#{point.addPoint()}" value="ПРОВЕРИТЬ" onclick="window.location.reload()"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h:form>
+
+                            <h:outputScript library="scripts" name="validate.js"/>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+
+            <br/>
+
+            <h:panelGroup rendered="#{not empty point.points}">
+                <div class="container">
+                    <h:outputScript name="scripts/validate.js">
+                        drawCanvas('canvas','#{point.r}');
+                    </h:outputScript>
+                    <label> Результаты:</label>
+                    <table id="beanTable">
+                        <tr>
+                            <th>X</th>
+                            <th>Y</th>
+                            <th>R</th>
+                            <th>Hit</th>
+                        </tr>
+                        <ui:repeat value="#{point.points}" var="item">
+                            <tr>
+                                <td>#{item.x}</td>
+                                <td>#{item.y}</td>
+                                <td>#{item.r}</td>
+                                <td>#{item.inArea}</td>
+                                <h:outputScript name="scripts/validate.js">
+                                    drawPoint('#{item.x}','#{item.x}','#{item.x}');
+                                </h:outputScript>
+                            </tr>
+                        </ui:repeat>
+                    </table>
+                </div>
+            </h:panelGroup>
+        </center>
+    </f:view>
+</h:body>
+</html>
