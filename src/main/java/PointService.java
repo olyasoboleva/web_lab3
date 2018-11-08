@@ -11,7 +11,7 @@ import java.util.LinkedList;
 public class PointService implements Serializable {
     double x;
     double y;
-    double r;
+    double r=4;
     boolean isInArea;
     LinkedList<Point> points = new LinkedList<>();
 

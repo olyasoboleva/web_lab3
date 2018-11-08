@@ -4,6 +4,7 @@
     <facet type="web" name="Web">
       <configuration>
         <descriptors>
+          <deploymentDescriptor name="glassfish-web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/glassfish-web.xml" />
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
@@ -39,8 +40,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 5.0.0 - JSF" level="application_server_libraries" />
-    <orderEntry type="library" name="IceFaces-3.1.0" level="project" />
-    <orderEntry type="library" name="PrimeFaces-6.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 5.0.0" level="application_server_libraries" />
     <orderEntry type="library" name="Hibernate 5.3.7-5.3.7" level="project" />
     <orderEntry type="library" name="postgresql-42.2.5" level="project" />
@@ -63,7 +62,6 @@
     <orderEntry type="library" name="Maven: io.agroal:agroal-api:0.4" level="project" />
     <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.2.5" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces.extensions:primefaces-extensions:6.2" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.2" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.5" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.3.7.Final" level="project" />
@@ -78,5 +76,7 @@
     <orderEntry type="library" name="Maven: org.dom4j:dom4j:2.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.0.4.Final" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.faces:jsf-impl:2.2.18" level="project" />
+    <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.2" level="project" />
   </component>
 </module>

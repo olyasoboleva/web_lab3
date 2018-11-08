@@ -17,7 +17,7 @@
     <h:outputScript library="scripts" name="validate.js"/>
 </h:head>
 
-<h:body onload="drawAllPoints(2)">
+<h:body onload="init();">
     <f:view>
         <center>
             <div class="header_1">
@@ -51,7 +51,7 @@
                             </div>
                         </td>
                         <td>
-                            <h:form class="form" id="form" method="post">
+                            <h:form class="form" id="form" method="post" onsubmit="return validateY()">
                                 <table>
                                     <tr>
                                         <td><label id="choose"> Выбор значений:</label></td>
@@ -60,10 +60,10 @@
                                         <td id="rowX">
                                             <h:outputLabel class="label" value="&#8226; Координата X: "/>
                                             <h:outputText class="x_input" id="X_text" value="#{point.x}"/>
-                                            <!--<h:panelGrid>
-                                                <p:inputText id="X"  />
-                                                <p:slider  minValue="-4" maxValue="4" step="1" styleClass="width-100" />-->
-                                            <!--</h:panelGrid>-->
+                                            <h:inputText id="X" value="4"/>
+                                            <!--<h:panelGrid columns="1" style="margin-bottom: 10px">
+                                                <p:slider for="X_text" minValue="-4" maxValue="5" step="1" id="X"/>
+                                            </h:panelGrid>-->
                                         </td>
                                     </tr>
 
@@ -71,13 +71,8 @@
                                         <td id="rowY">
                                             <h:outputLabel class="label" value="&#8226; Координата Y: " /><br/>
                                             <h:inputText class="input_Y" id="Y" a:placeholder="(-5;3)"  maxlength="6" name="Y"
-                                                         value="#{point.y}" required="true" requiredMessage="Введите значение Y!"
-                                                         validatorMessage="Значение от -5 до 3!" onfocus="removeError();" onblur="validateY(this.value);">
-                                                <f:validateDoubleRange maximum="3" minimum="-5" for="Y" />
+                                                         value="#{point.y}" onfocus="removeError();" onblur="yVal = this.value; validateY();">
                                             </h:inputText><br/>
-                                            <div>
-                                                <h:message id="m1" for="Y" style="color:red"/>
-                                            </div>
                                             <div id="error">
                                                 <br/>
                                             </div>
@@ -86,9 +81,9 @@
                                     <tr>
                                         <td>
                                             <h:outputLabel class="label" value="&#8226; Радиус R: " />
-                                            <h:outputText class="input_R" id="R_text" value="#{point.r}"/>
+                                            <h:outputText class="input_R" id="R_text" value="#{point.r/2}"/>
                                             <ace:sliderEntry style="margin-top: 10px;" id="R" value="#{point.r}"
-                                                             min="1" max="4" stepPercent="16.6666666" length="200" showLabels="false">
+                                                             min="2" max="8" stepPercent="16.6666666" length="200" showLabels="false" onSlideEnd="drawAllPoints(ice.ace.instance('form:R').getValue()/2);">
                                                 <ace:ajax event="slide" render="R_text" execute="R" />
                                                 <ace:ajax execute="R" render="table" />
                                             </ace:sliderEntry>
@@ -129,7 +124,7 @@
                             <tr>
                                 <td>#{item.x}</td>
                                 <td>#{item.y}</td>
-                                <td>#{item.r}</td>
+                                <td>#{item.r/2}</td>
                                 <td>#{item.inArea}</td>
                                 <h:outputScript name="scripts/validate.js">
                                     drawPoint('#{item.x}','#{item.x}','#{item.x}');

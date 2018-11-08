@@ -15,7 +15,6 @@
           <element id="library" level="project" name="Maven: io.agroal:agroal-api:0.4" />
           <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.2.5" />
           <element id="library" level="project" name="Maven: org.primefaces.extensions:primefaces-extensions:6.2" />
-          <element id="library" level="project" name="Maven: org.primefaces:primefaces:6.2" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.2" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.5" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.3.7.Final" />
@@ -30,6 +29,8 @@
           <element id="library" level="project" name="Maven: org.dom4j:dom4j:2.1.1" />
           <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.0.4.Final" />
           <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
+          <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.2.18" />
+          <element id="library" level="project" name="Maven: org.primefaces:primefaces:6.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">
