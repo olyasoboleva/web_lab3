@@ -47,12 +47,12 @@ public class PointService implements Serializable {
         this.points = points;
     }
 
-    public boolean isInArea() {
+    public boolean getIsInArea() {
         isArea();
         return isInArea;
     }
 
-    public void setInArea(boolean inArea) {
+    public void setIsInArea(boolean inArea) {
         isInArea = inArea;
     }
 
@@ -73,9 +73,9 @@ public class PointService implements Serializable {
     }
 
     public void addPoint() {
-        Point point = new Point(getX(),getY(),getR(),isInArea());
+        Point point = new Point(getX(),getY(),getR(),getIsInArea());
         points.add(point);
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
         session.save(point);
         tx1.commit();

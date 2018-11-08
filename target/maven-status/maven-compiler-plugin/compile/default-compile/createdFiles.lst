@@ -1,4 +1,3 @@
 Point.class
-Test.class
 PointService.class
-HibernateSessionFactoryUtil.class
+HibernateUtil.class
