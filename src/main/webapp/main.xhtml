@@ -13,17 +13,17 @@
 <h:head>
     <title>Lab_3</title>
     <h:outputStylesheet library="styles" name="main.css"/>
+    <link rel="shortcut icon" href="resources/images/duck.ico"/>
     <link rel="stylesheet" href="resources/styles/main.css" type="text/css" />
     <h:outputScript library="scripts" name="validate.js"/>
 </h:head>
 
-<h:body onload="drawAllPoints(2)">
+<h:body onload="drawAllPoints(2)" styleClass="main">
     <f:view>
         <center>
             <div class="header_1">
                 <table class="table_header_1">
                     <tr>
-                        <!-- <td><a href="https://se.ifmo.ru/documents"> <img name="vt_image" src="./images/vt_logo.png"> </a></td>-->
                         <td ><label> Лабораторная работа № 3 </label></td>
                     </tr>
                 </table>
@@ -33,16 +33,21 @@
             <div class="header_2">
                 <table class="table_header_2">
                     <tr>
-                        <td>Группа P3212</td>
-                        <td ><a href="https://isu.ifmo.ru/pls/apex/f?p=2143:3:102153591906187::NO:RP:PID:242361">  Редькина Ирина/</a><a href="https://isu.ifmo.ru/pls/apex/f?p=2143:3:115928066281303::NO:RP:PID:243887">Соболева Ольга  </a>  </td>
-                        <td> Вариант 8130</td>
+                        <td><a href="https://isu.ifmo.ru/pls/apex/f?p=2143:GR:113549732621734::NO::GR_GR,GR_DATE:p3212,08.11.2018"> Группа P3212 </a></td>
+                        <td>&#9728;</td>
+                        <td><a href="https://se.ifmo.ru/courses/iaps#labs"> Вариант 8130 </a> </td>
+                    </tr>
+                    <tr>
+                        <td> <a href="https://isu.ifmo.ru/pls/apex/f?p=2143:3:102153591906187::NO:RP:PID:242361"> Редькина Ирина  </a> </td>
+                        <td>&#128049; &#128058;</td>
+                        <td > <a href="https://isu.ifmo.ru/pls/apex/f?p=2143:3:115928066281303::NO:RP:PID:243887">Соболева Ольга  </a>  </td>
                     </tr>
                 </table>
             </div>
 
             <br/>
             <div class="container form" id="inputs">
-                <h:button value="Стартовая" outcome="index"/>
+                <h:button styleClass="moveToStart" value="Стартовая" outcome="index"/>
                 <table class = "input_table">
                     <tr>
                         <td>
@@ -59,11 +64,12 @@
                                     <tr>
                                         <td id="rowX">
                                             <h:outputLabel class="label" value="&#8226; Координата X: "/>
-                                            <h:outputText class="x_input" id="X_text" value="#{point.x}"/>
-                                            <!--<h:panelGrid>
-                                                <p:inputText id="X"  />
-                                                <p:slider  minValue="-4" maxValue="4" step="1" styleClass="width-100" />-->
-                                            <!--</h:panelGrid>-->
+
+                                            <h:panelGrid columns="1" style="margin-bottom: 10px">
+                                                <h:outputText id="X" value="#{point.x}" />
+                                                <p:slider for="X" style="width:400px"  minValue="1" maxValue="5" step="1" />
+                                            </h:panelGrid>
+
                                         </td>
                                     </tr>
 
@@ -92,12 +98,13 @@
                                                 <ace:ajax event="slide" render="R_text" execute="R" />
                                                 <ace:ajax execute="R" render="table" />
                                             </ace:sliderEntry>
+
                                         </td>
                                     </tr>
 
                                     <tr >
                                         <td>
-                                            <h:commandButton id="submit" action="#{point.addPoint()}" value="ПРОВЕРИТЬ" onclick="window.location.reload()"/>
+                                            <h:commandButton id="submit" action="#{point.addPoint()}" styleClass="submitButton" value="ПРОВЕРИТЬ" onclick="window.location.reload()"/>
                                         </td>
                                     </tr>
                                 </table>

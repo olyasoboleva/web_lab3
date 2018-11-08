@@ -1,21 +1,20 @@
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "points")
+@Entity(name = "points")
 public class Point implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     int id;
-    @Column(name = "X")
+    @Column(name = "X", nullable = false)
     double X;
-    @Column(name = "Y")
+    @Column(name = "Y", nullable = false)
     double Y;
-    @Column(name = "R")
+    @Column(name = "R", nullable = false)
     double R;
-    @Column(name = "IsInArea")
+    @Column(name = "IsInArea", nullable = false)
     boolean isInArea;
 
     public Point() {}

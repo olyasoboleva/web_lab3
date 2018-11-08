@@ -1,4 +1,13 @@
-body{
+body.start{
+    background-image: url(#{resource[ 'images/catWithBalls.jpg' ]});
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+}
+
+body.main{
     background-image: url(#{resource[ 'images/cat.png' ]});
     background-position: center center;
     background-repeat: no-repeat;
@@ -6,6 +15,7 @@ body{
     background-size: cover;
     margin: 0;
 }
+
 .header_1, .header_2, .container, #clock{
     width: 800px;
     border-radius: 15px;
@@ -18,12 +28,12 @@ body{
 
 .header_1 {
     height: 55px;
-    font-size: 25px;
+    font-size: 35px;
     margin-bottom: 15px;
 }
 
 .header_2 {
-    height: 45px;
+    height: 75px;
     font-size: 25pt;
 }
 
@@ -33,7 +43,7 @@ body{
 }
 
 #clock {
-    height: 50px;
+    height: 65px;
     font-size: 20pt;
 }
 
@@ -61,6 +71,23 @@ table.input_table {
     font-size: 20px;
 }
 
-#beanTable td {
+#beanTable td, #beanTable th {
     border: 1px solid black;
+}
+
+.buttonToMain, .submitButton, .moveToStart {
+    width: 165px;
+    background: #1b30a7 !important;
+    color: white;
+    height: 30px;
+    border-radius: 10px;
+}
+
+#canvas {
+    border: 1px solid blue;
+}
+
+a {
+    color: black;
+    text-decoration: none !important;
 }

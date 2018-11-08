@@ -33,7 +33,7 @@ body{
 }
 
 #clock {
-    height: 50px;
+    height: 65px;
     font-size: 20pt;
 }
 
@@ -61,6 +61,6 @@ table.input_table {
     font-size: 20px;
 }
 
-#beanTable td {
+#beanTable td, #beanTable th {
     border: 1px solid black;
 }
