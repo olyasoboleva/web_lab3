@@ -2,6 +2,7 @@ var form = document.querySelector('.form');
 var x_form = document.getElementById("form:X");
 var y_form = document.getElementById("form:Y");
 var r_form = document.getElementById("form:R");
+var yVal;
 
 var generateError = function (text) {
     var error = document.createElement('div');
@@ -10,51 +11,44 @@ var generateError = function (text) {
     return error;
 };
 
-function validateY(input) {
+function validateY() {
+    var input;
+    input = yVal;
+    if (yVal.indexOf(",") !== -1) {
+        input = input.replace(",",".");
+    }
+    var errorMes = "";
+    var success = true;
+    if (input>=5 || input<=-3 || isNaN(input) || input.length<1 || input.search(/^\s+$/) != -1){
+        success = false;
+        if (input.length<1||(input.search(/^\s+$/) != -1)) errorMes = "Введите Y!";
+        else if (input>5) errorMes = "Значение меньше 3!";
+        else if (input<-3) errorMes = "Значение больше -3!";
+        else if (isNaN(input)) errorMes = "Y - целое или дробное число!";
+    }
     var str2 = parseFloat(input);
     str2 = str2.toString();
     var error = document.getElementById("error");
-    if (input!==str2){
-        error.innerHTML = "Некорректное значение Y!";
-        return false;
-    } else {
+    if (success){
+        y_form = str2;
         return true;
+    } else {
+        error.innerHTML = errorMes;
+        return false;
     }
 }
 
 function removeError() {
     var error = document.getElementById("error");
-    error.innerHTML = "";
+    error.innerHTML = "<br/>";
 };
 
-function validate(x,y1,r) {
-    var check_Y = true;
-    var point = false;
-    var y = y1;
-    if (y.indexOf(",") !== -1) {
-        y = y.replace(",",".");
-        point = true;
-    }
-    if (!y || y <= -5 || y >= 3 || isNaN(y) || y.charAt(0).localeCompare(".") === 0) {
-        var error = generateError('Некорректно задано значение Y. Y ∈ (-5;3). Y должно быть числом.');
-        document.getElementById("rowY").insertBefore(error, null);
-        check_Y = false;
-    }
-    if (check_Y) {
-        drawCanvas('canvas', r);
-        drawPoint( x, y, r);
-        /*
-        if (point) {
-            y_form.value = y_form.value.replace(".",",");
-        }
-        ??????????????????????????????????????????????????????????
-        */
-        form.submit();
-        return true;
-    } else return false;
+function init(){
+    drawAllPoints();
 }
 
-function drawAllPoints(r) {
+function drawAllPoints() {
+    var r = ice.ace.instance('form:R').getValue()/2;
     var x,y;
     var counter=0;
     var table = document.getElementById('beanTable');
@@ -204,7 +198,8 @@ function createCanvas(id, x, y, r){
     context.stroke();
 }
 
-function clickCanvas(r){
+function clickCanvas(){
+    var r = ice.ace.instance('form:R').getValue();
     var canvas = document.getElementById('canvas');
     var br = canvas.getBoundingClientRect();
     var left = br.left;
@@ -221,7 +216,7 @@ function clickCanvas(r){
         y_form.value = y;
         r_form.value = r;
         drawPoint(x, y, r);
-        //document.getElementById('form:submit').click();
+        document.getElementById('form:submit').click();
     }
 }
 

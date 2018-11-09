@@ -11,7 +11,7 @@ import java.util.LinkedList;
 public class PointService implements Serializable {
     double x;
     double y;
-    double r = 2;
+    double r = 4;
     boolean isInArea;
     LinkedList<Point> points = new LinkedList<>();
 
@@ -74,7 +74,6 @@ public class PointService implements Serializable {
 
     public void addPoint() {
         Point point = new Point(getX(),getY(),getR(),getIsInArea());
-        System.out.println(getX() + getY() + getR());
         points.add(point);
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
