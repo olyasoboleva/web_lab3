@@ -18,7 +18,7 @@
     <h:outputScript library="scripts" name="validate.js"/>
 </h:head>
 
-<h:body onload="init();" styleClass="main">
+<h:body onload="init()" styleClass="main">
     <f:view>
         <center>
             <div class="header_1">
@@ -52,7 +52,7 @@
                     <tr>
                         <td>
                             <div>
-                                <canvas id="canvas" onclick="clickCanvas(#{point.r})" style="background-color:#ffffff; border-radius: 20px;" width="300" height="300"/>
+                                <canvas id="canvas" onclick="clickCanvas()" style="background-color:#ffffff; border-radius: 20px;" width="300" height="300"/>
                             </div>
                         </td>
                         <td>
@@ -65,10 +65,11 @@
                                         <td id="rowX">
                                             <h:outputLabel class="label" value="&#8226; Координата X: "/>
                                             <h:outputText class="x_input" id="X_text" value="#{point.x}"/>
-                                            <h:inputText id="X" value="4"/>
-                                            <!--<h:panelGrid columns="1" style="margin-bottom: 10px">
-                                                <p:slider for="X_text" minValue="-4" maxValue="5" step="1" id="X"/>
-                                            </h:panelGrid>-->
+                                            <ace:sliderEntry style="margin-top: 10px;" id="X" value="#{point.x}"
+                                                             min="-4" max="5" stepPercent="11.1111111" length="200" showLabels="false">
+                                                <ace:ajax event="slide" render="X_text" execute="X" />
+                                                <ace:ajax execute="X" render="table" />
+                                            </ace:sliderEntry>
                                         </td>
                                     </tr>
 
@@ -88,11 +89,10 @@
                                             <h:outputLabel class="label" value="&#8226; Радиус R: " />
                                             <h:outputText class="input_R" id="R_text" value="#{point.r/2}"/>
                                             <ace:sliderEntry style="margin-top: 10px;" id="R" value="#{point.r}"
-                                                             min="2" max="8" stepPercent="16.6666666" length="200" showLabels="false" onSlideEnd="drawAllPoints(ice.ace.instance('form:R').getValue()/2);">
+                                                             min="2" max="8" stepPercent="16.6666666" length="200" showLabels="false" onSlideEnd="drawAllPoints();">
                                                 <ace:ajax event="slide" render="R_text" execute="R" />
                                                 <ace:ajax execute="R" render="table" />
                                             </ace:sliderEntry>
-
                                         </td>
                                     </tr>
 
@@ -133,7 +133,7 @@
                                 <td>#{item.r/2}</td>
                                 <td>#{item.inArea}</td>
                                 <h:outputScript name="scripts/validate.js">
-                                    drawPoint('#{item.x}','#{item.x}','#{item.x}');
+                                    drawPoint('#{item.x}','#{item.y}','#{item.r}');
                                 </h:outputScript>
                             </tr>
                         </ui:repeat>

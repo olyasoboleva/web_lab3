@@ -19,9 +19,9 @@ function validateY() {
     }
     var errorMes = "";
     var success = true;
-    if (input>=5 || input<=-3 || isNaN(input) || input.length<1 || input.search(/^\s+$/) != -1){
+    if (input>=5 || input<=-3 || isNaN(input) || input.length<1 || input.search(/^\s+$/) !== -1){
         success = false;
-        if (input.length<1||(input.search(/^\s+$/) != -1)) errorMes = "Введите Y!";
+        if (input.length<1||(input.search(/^\s+$/) !== -1)) errorMes = "Введите Y!";
         else if (input>5) errorMes = "Значение меньше 3!";
         else if (input<-3) errorMes = "Значение больше -3!";
         else if (isNaN(input)) errorMes = "Y - целое или дробное число!";
@@ -199,7 +199,7 @@ function createCanvas(id, x, y, r){
 }
 
 function clickCanvas(){
-    var r = ice.ace.instance('form:R').getValue();
+    var r = ice.ace.instance('form:R').getValue()/2;
     var canvas = document.getElementById('canvas');
     var br = canvas.getBoundingClientRect();
     var left = br.left;
@@ -212,11 +212,11 @@ function clickCanvas(){
         x = Math.round((x - size / 2) * r * 10 / 2 / 65) / 10;
         y = Math.round((-y + size / 2) * r * 10 / 2 / 65) / 10;
         drawCanvas('canvas', r);
-        x_form.value = x;
+        //ice.ace.instance('form:X').setValue(x);
+        document.getElementById("X_text").setValue(x);
         y_form.value = y;
-        r_form.value = r;
         drawPoint(x, y, r);
-        //document.getElementById('form:submit').click();
+        document.getElementById('form:submit').click();
     }
 }
 
