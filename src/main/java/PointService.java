@@ -9,8 +9,8 @@ import java.util.LinkedList;
 @ManagedBean(name = "point")
 @SessionScoped
 public class PointService implements Serializable {
-    double x;
-    double y;
+    double x = 0;
+    double y = 0;
     double r = 4;
     boolean isInArea;
     LinkedList<Point> points = new LinkedList<>();
