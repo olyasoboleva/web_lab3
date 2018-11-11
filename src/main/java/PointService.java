@@ -57,13 +57,13 @@ public class PointService implements Serializable {
     }
 
     public void isArea () {
-        if ((x >= 0) && (y >= 0) && (y <= -x/2 + 0.5)) {
+        if ((x >= 0) && (y >= 0) && (y <= (r/2-x)/2)) {
             isInArea = true;
         } else {
-            if ((x <= 0) && (y >= 0) && ((x * x + y * y) <= r * r / 4)) {
+            if ((x <= 0) && (y >= 0) && ((x * x + y * y) <= r/2 * r/2 / 4)) {
                 isInArea = true;
             } else {
-                if ((x <= 0) && (y <= 0) && (x >= -r) && (y >= -r)) {
+                if ((x <= 0) && (y <= 0) && (x >= -r/2) && (y >= -r/2)) {
                     isInArea = true;
                 } else {
                     isInArea = false;
@@ -73,10 +73,10 @@ public class PointService implements Serializable {
     }
 
     public void addPoint() {
-        Point point = new Point(getX(),getY(),getR(),getIsInArea());
-        points.add(point);
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
+        Point point = new Point(getX(),getY(),getR(),getIsInArea());
+        points.add(point);
         session.save(point);
         tx1.commit();
         session.close();

@@ -212,8 +212,7 @@ function clickCanvas(){
         x = Math.round((x - size / 2) * r * 10 / 2 / 65) / 10;
         y = Math.round((-y + size / 2) * r * 10 / 2 / 65) / 10;
         drawCanvas('canvas', r);
-        //ice.ace.instance('form:X').setValue(x);
-        document.getElementById("X_text").setValue(x);
+        ice.ace.instance('form:X').setValue(x);
         y_form.value = y;
         drawPoint(x, y, r);
         document.getElementById('form:submit').click();
