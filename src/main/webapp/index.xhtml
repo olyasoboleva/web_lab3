@@ -13,7 +13,7 @@
     <h:outputScript library="scripts" name="clock.js"/>
 </h:head>
 
-<h:body styleClass="start">
+<h:body styleClass="start" onload="initLocalClocks()">
     <f:view>
         <center>
             <div class="header_1">
@@ -43,8 +43,11 @@
 
             <div id="clock"/>
             <br/>
-
             <h:button styleClass = "buttonToMain" value="На главную" outcome="main"/>
+<br/>
+
+
+
         </center>
     </f:view>
 </h:body>

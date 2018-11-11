@@ -79,7 +79,7 @@
                                             <h:inputText class="input_Y" id="Y" a:placeholder="(-5;3)"  maxlength="6" name="Y"
                                                          value="#{point.y}" onfocus="removeError();" onblur="yVal = this.value; validateY();">
                                             </h:inputText><br/>
-                                            <div id="error" class="error">
+                                            <div id="error" class="error" >
                                                 <br/>
                                             </div>
                                         </td>
@@ -114,11 +114,11 @@
             <br/>
 
             <h:panelGroup rendered="#{not empty point.points}">
-                <div class="container">
+                <div class="newWindow">
                     <h:outputScript name="scripts/validate.js">
                         drawCanvas('canvas','#{point.r}');
                     </h:outputScript>
-                    <label> Результаты:</label>
+                    <label id="res"> Результаты:</label>
                     <table id="beanTable">
                         <tr>
                             <th>X</th>

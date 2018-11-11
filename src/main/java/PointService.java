@@ -18,7 +18,6 @@ public class PointService implements Serializable {
     public double getX() {
         return x;
     }
-
     public void setX(double x) {
         this.x = x;
     }
@@ -26,7 +25,6 @@ public class PointService implements Serializable {
     public double getY() {
         return y;
     }
-
     public void setY(double y) {
         this.y = y;
     }
@@ -34,7 +32,6 @@ public class PointService implements Serializable {
     public double getR() {
         return r;
     }
-
     public void setR(double r) {
         this.r = r;
     }
@@ -42,9 +39,8 @@ public class PointService implements Serializable {
     public LinkedList<Point> getPoints() {
         return points;
     }
-
-    public void setPoints(LinkedList<Point> points) {
-        this.points = points;
+    public void setPoints(Point point) {
+        points.add(point);
     }
 
     public boolean getIsInArea() {
@@ -52,12 +48,9 @@ public class PointService implements Serializable {
         return isInArea;
     }
 
-    public void setIsInArea(boolean inArea) {
-        isInArea = inArea;
-    }
-
     public void isArea () {
         if ((x >= 0) && (y >= 0) && (y <= (r/2-x)/2)) {
+
             isInArea = true;
         } else {
             if ((x <= 0) && (y >= 0) && ((x * x + y * y) <= r/2 * r/2 / 4)) {
@@ -78,7 +71,8 @@ public class PointService implements Serializable {
         Point point = new Point(getX(),getY(),getR(),getIsInArea());
         points.add(point);
         session.save(point);
-        tx1.commit();
-        session.close();
+        session.getTransaction().commit();
+        //session.close();
     }
+
 }

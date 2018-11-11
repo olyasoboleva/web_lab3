@@ -4,8 +4,8 @@ function setTime() {
     let minutes = date.getMinutes();
     let hours = date.getHours();
     let year = date.getFullYear();
-    let month = date.getMonth();
-    let day = date.getDay();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
     document.getElementById("clock").innerHTML = "Дата: " + formatDate(day) + "." + formatDate(month) + "." + year
         + "<br/>Время: " + formatDate(hours) + ":" + formatDate(minutes) + ":" + formatDate(sec);
     let time = setTimeout(setTime, 6000);

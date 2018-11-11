@@ -91,3 +91,28 @@ a {
     color: black;
     text-decoration: none !important;
 }
+
+.error {
+    text-align: center;
+    font-size: 15px;
+    color: red;
+}
+
+.newWindow{
+    display: inline-block;
+    width: 800px;
+    border-radius: 15px;
+    background-color: rgba(238, 253, 247, 0.9);
+    font-family: monospace;
+    color: #000000;
+    padding: 10px;
+    border: 1px solid blue;
+    filter: alpha(Opacity=70);
+}
+
+#res {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
