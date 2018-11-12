@@ -1,8 +1,8 @@
 var form = document.querySelector('.form');
 var x_form = document.getElementById("form:X");
-var y_form = document.getElementById("form:Y");
+var y_form = document.getElementById("Y");
 var r_form = document.getElementById("form:R");
-var yVal;
+var yVal='0';
 
 var generateError = function (text) {
     var error = document.createElement('div');
@@ -13,10 +13,7 @@ var generateError = function (text) {
 
 function validateY() {
     var input;
-    input = yVal;
-    if (yVal.indexOf(",") !== -1) {
-        input = input.replace(",",".");
-    }
+    input = yVal.toString();
     var errorMes = "";
     var success = true;
     if (input>=5 || input<=-3 || isNaN(input) || input.length<1 || input.search(/^\s+$/) !== -1){
@@ -212,10 +209,11 @@ function clickCanvas(){
         x = Math.round((x - size / 2) * r * 10 / 2 / 65) / 10;
         y = Math.round((-y + size / 2) * r * 10 / 2 / 65) / 10;
         drawCanvas('canvas', r);
-        ice.ace.instance('form:X').setValue(x);
-        y_form.value = y;
+        //ice.ace.instance('form:X').setValue(x);
+        document.getElementById("form:x_hidden").value = x;
+        document.getElementById("form:Y").value = y;
         drawPoint(x, y, r);
-        document.getElementById('form:submit').click();
+        document.getElementById('form:validationButton').click();
     }
 }
 
