@@ -13,7 +13,7 @@
     <h:outputScript library="scripts" name="clock.js"/>
 </h:head>
 
-<h:body styleClass="start" onload="initLocalClocks()">
+<h:body styleClass="start" onload="createCalendar()">
     <f:view>
         <center>
             <div class="header_1">
@@ -39,14 +39,28 @@
                     </tr>
                 </table>
             </div>
+
             <br/>
 
-            <div id="clock"/>
-            <br/>
-            <h:button styleClass = "buttonToMain" value="На главную" outcome="main"/>
-<br/>
+            <div id = "clockAndCalendar">
+                <table id = "startTable">
+                    <tr>
+                        <td>
+                            <div id="calendar">
+                                <table id="tableCalendar">
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="clock"/>
+                        </td>
+                    </tr>
+                </table>
 
+                <br/>
 
+                <h:button styleClass = "buttonToMain" value="На главную" outcome="main"/>
+            </div>
 
         </center>
     </f:view>

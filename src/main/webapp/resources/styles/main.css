@@ -16,7 +16,7 @@ body.main{
     margin: 0;
 }
 
-.header_1, .header_2, .container, #clock{
+.header_1, .header_2, .container, #clockAndCalendar{
     width: 800px;
     border-radius: 15px;
     background-color: rgba(238, 253, 247, 0.9);
@@ -42,9 +42,16 @@ body.main{
     height: 450px;
 }
 
+#clockAndCalendar {
+    font-size: 25px;
+    height: 350px;
+}
+
 #clock {
     height: 65px;
-    font-size: 20pt;
+    font-size: 30pt;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #0001a7;
 }
 
 .table_header_2 td {
@@ -71,7 +78,33 @@ table.input_table {
     font-size: 20px;
 }
 
-#beanTable td, #beanTable th {
+#tableCalendar {
+    font-size: 20px;
+    border-collapse: collapse;
+    text-align: center;
+    border: 1px solid black;
+}
+
+#startTable td {
+    padding: 40px;
+}
+
+
+#tableCalendar td {
+    background: #fbefeb;
+    padding: 10px;
+}
+
+#tableCalendar caption {
+    font-weight: bold;
+}
+
+#tableCalendar th{
+    font-weight: bold;
+    background: #fb817b;
+}
+
+#beanTable td, #beanTable th, #tableCalendar td, #tableCalendar th {
     border: 1px solid black;
 }
 

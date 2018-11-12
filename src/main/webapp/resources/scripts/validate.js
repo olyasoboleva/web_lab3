@@ -4,13 +4,6 @@ var y_form = document.getElementById("Y");
 var r_form = document.getElementById("form:R");
 var yVal='0';
 
-var generateError = function (text) {
-    var error = document.createElement('div');
-    error.className = 'error';
-    error.innerHTML = text;
-    return error;
-};
-
 function validateY() {
     var input;
     input = yVal.toString();
@@ -183,19 +176,8 @@ function drawCanvas(id, r){
     context.stroke();
 }
 
-//оно используется?
-function createCanvas(id, x, y, r){
-    drawCanvas(id, r);
-    context.beginPath();
-    context.rect(Math.round(150 + ((x / r) * 130))-2, Math.round(150 - ((y / r) * 130))-2, 4, 4);
-    context.closePath();
-    context.strokeStyle = "red";
-    context.fillStyle = "red";
-    context.fill();
-    context.stroke();
-}
-
 function clickCanvas(){
+    removeError();
     var r = ice.ace.instance('form:R').getValue()/2;
     var canvas = document.getElementById('canvas');
     var br = canvas.getBoundingClientRect();
@@ -209,9 +191,9 @@ function clickCanvas(){
         x = Math.round((x - size / 2) * r * 10 / 2 / 65) / 10;
         y = Math.round((-y + size / 2) * r * 10 / 2 / 65) / 10;
         drawCanvas('canvas', r);
-        //ice.ace.instance('form:X').setValue(x);
         document.getElementById("form:x_hidden").value = x;
         document.getElementById("form:Y").value = y;
+        yVal = y;
         drawPoint(x, y, r);
         document.getElementById('form:validationButton').click();
     }
