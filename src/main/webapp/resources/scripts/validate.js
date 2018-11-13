@@ -9,11 +9,11 @@ function validateY() {
     input = yVal.toString();
     var errorMes = "";
     var success = true;
-    if (input>=5 || input<=-3 || isNaN(input) || input.length<1 || input.search(/^\s+$/) !== -1){
+    if (input >= 5 || input <= -3 || isNaN(input) || input.length < 1 || input.search(/^\s+$/) !== -1){
         success = false;
-        if (input.length<1||(input.search(/^\s+$/) !== -1)) errorMes = "Введите Y!";
-        else if (input>5) errorMes = "Значение меньше 3!";
-        else if (input<-3) errorMes = "Значение больше -3!";
+        if (input.length < 1||(input.search(/^\s+$/) !== -1)) errorMes = "Введите Y!";
+        else if (input > 5) errorMes = "Значение меньше 3!";
+        else if (input < -3) errorMes = "Значение больше -3!";
         else if (isNaN(input)) errorMes = "Y - целое или дробное число!";
     }
     var str2 = parseFloat(input);

@@ -126,7 +126,7 @@ a {
 }
 
 .error {
-    text-align: center;
+    text-align: left;
     font-size: 15px;
     color: red;
 }
@@ -146,6 +146,11 @@ a {
 #res {
     font-size: 30px;
     font-weight: bold;
+}
+
+#formTable td {
+    width: 300px;
+    text-align: left;
 }
 
 

@@ -55,7 +55,7 @@
                         </td>
                         <td>
                             <h:form class="form" id="form" method="post" onkeypress="if (event.keyCode = 13) document.getElementById('form:validationButton').click()">
-                                <table>
+                                <table id = "formTable">
                                     <tr>
                                         <td><label id="choose"> Выбор значений:</label></td>
                                     </tr>
@@ -64,7 +64,7 @@
                                             <h:outputLabel class="label" value="&#8226; Координата X: "/>
                                             <h:outputText class="x_input" id="X_text" value="#{point.x}"/>
                                             <ace:sliderEntry style="margin-top: 10px;" id="X" value="#{point.x}"
-                                                             min="-4" max="5" stepPercent="11.1111111" length="200" showLabels="false">
+                                                             min="-4" max="5" stepPercent="11.1111111" length="160" showLabels="false">
                                                 <ace:ajax event="slide" render="X_text" execute="X" />
                                                 <ace:ajax execute="X" render="table" />
                                             </ace:sliderEntry>
@@ -88,7 +88,7 @@
                                             <h:outputLabel class="label" value="&#8226; Радиус R: " />
                                             <h:outputText class="input_R" id="R_text" value="#{point.r/2}"/>
                                             <ace:sliderEntry style="margin-top: 10px;" id="R" value="#{point.r}"
-                                                             min="2" max="8" stepPercent="16.6666666" length="200" showLabels="false" onSlideEnd="drawAllPoints();">
+                                                             min="2" max="8" stepPercent="16.6666666" length="160" showLabels="false" onSlideEnd="drawAllPoints();">
                                                 <ace:ajax event="slide" render="R_text" execute="R" />
                                                 <ace:ajax execute="R" render="table" />
                                             </ace:sliderEntry>
@@ -99,7 +99,7 @@
                                         <td>
                                             <h:commandButton id="validationButton" onclick="if (validateY()) {document.getElementById('form:submit').click()}" styleClass="submitButton" value="ПРОВЕРИТЬ"/>
                                             <h:commandButton id="submit" action="#{point.addPoint()}" style="display: none" onclick="window.location.reload()">
-                                                <f:ajax execute="@form" render="table" />
+                                            <!--    <f:ajax execute="@form" render="beanTable" /> -->
                                             </h:commandButton>
                                         </td>
                                     </tr>
@@ -133,7 +133,10 @@
                                 <td>#{item.x}</td>
                                 <td>#{item.y}</td>
                                 <td>#{item.r/2}</td>
-                                <td>#{item.inArea}</td>
+                                <td>
+                                    <h:outputLabel value="&#9989;" rendered="#{item.inArea == true}" />
+                                    <h:outputLabel value="&#10060;" rendered="#{item.inArea == false}" />
+                                </td>
                                 <h:outputScript name="scripts/validate.js">
                                     drawPoint('#{item.x}','#{item.y}','#{item.r}');
                                 </h:outputScript>
