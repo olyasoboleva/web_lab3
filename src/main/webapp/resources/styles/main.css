@@ -148,8 +148,8 @@ a {
     font-weight: bold;
 }
 
-#formTable td {
-    width: 350px;
+#rowX {
+    width: 300px;
     text-align: left;
 }
 
