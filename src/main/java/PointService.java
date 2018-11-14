@@ -3,10 +3,14 @@ import org.hibernate.Transaction;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-@ManagedBean(name = "point")
+@ManagedBean(name = "point", eager = true)
 @SessionScoped
 public class PointService implements Serializable {
     double x = 0;
@@ -67,12 +71,17 @@ public class PointService implements Serializable {
 
     public void addPoint() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
+        session.beginTransaction();
         Point point = new Point(getX(),getY(),getR(),getIsInArea());
         points.add(point);
         session.save(point);
         session.getTransaction().commit();
-        //session.close();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        } catch (IOException e) {
+            //
+        }
     }
 
 }

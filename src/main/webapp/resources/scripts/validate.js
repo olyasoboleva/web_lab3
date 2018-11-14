@@ -20,7 +20,7 @@ function validateY() {
     str2 = str2.toString();
     var error = document.getElementById("error");
     if (success){
-        y_form = str2;
+        document.getElementById("form:Y").value = str2;
         return true;
     } else {
         error.innerHTML = errorMes;
@@ -196,6 +196,7 @@ function clickCanvas(){
         yVal = y;
         drawPoint(x, y, r);
         document.getElementById('form:validationButton').click();
+        drawAllPoints();
     }
 }
 

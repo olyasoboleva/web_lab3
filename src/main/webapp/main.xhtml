@@ -32,12 +32,12 @@
                 <table class="table_header_2">
                     <tr>
                         <td><a href="https://isu.ifmo.ru/pls/apex/f?p=2143:GR:113549732621734::NO::GR_GR,GR_DATE:p3212,08.11.2018"> Группа P3212 </a></td>
-                        <td>&#9728;</td>
+                        <td>&#127774;</td>
                         <td><a href="https://se.ifmo.ru/courses/iaps#labs"> Вариант 8130 </a> </td>
                     </tr>
                     <tr>
                         <td> <a href="https://isu.ifmo.ru/pls/apex/f?p=2143:3:102153591906187::NO:RP:PID:242361"> Редькина Ирина  </a> </td>
-                        <td>&#128049; &#128058;</td>
+                        <td>&#127770; &#127773;</td>
                         <td > <a href="https://isu.ifmo.ru/pls/apex/f?p=2143:3:115928066281303::NO:RP:PID:243887">Соболева Ольга  </a>  </td>
                     </tr>
                 </table>
@@ -54,21 +54,24 @@
                             </div>
                         </td>
                         <td>
-                            <h:form class="form" id="form" method="post" onkeypress="if (event.keyCode = 13) document.getElementById('form:validationButton').click()">
-                                <table id = "formTable">
+                            <h:form class="form" id="form" method="post">
+                                <table>
                                     <tr>
                                         <td><label id="choose"> Выбор значений:</label></td>
                                     </tr>
                                     <tr>
                                         <td id="rowX">
+                                            <f:facet name="kek">kek</f:facet>
                                             <h:outputLabel class="label" value="&#8226; Координата X: "/>
                                             <h:outputText class="x_input" id="X_text" value="#{point.x}"/>
                                             <ace:sliderEntry style="margin-top: 10px;" id="X" value="#{point.x}"
                                                              min="-4" max="5" stepPercent="11.1111111" length="160" showLabels="false">
-                                                <ace:ajax event="slide" render="X_text" execute="X" />
-                                                <ace:ajax execute="X" render="table" />
+                                                <ace:ajax event="slide" render="X_text x_hidden" execute="X" />
+                                                <ace:ajax execute="X" render="beanTable" />
                                             </ace:sliderEntry>
-                                            <h:inputText class="x_hidden" id="x_hidden" value="#{point.x}" style="display: none"/>
+                                            <h:inputText class="x_hidden" id="x_hidden" value="#{point.x}" style="display: none">
+                                                <f:ajax event="change" render="X_text" execute="x_hidden" />
+                                            </h:inputText>
                                         </td>
                                     </tr>
 
@@ -90,7 +93,7 @@
                                             <ace:sliderEntry style="margin-top: 10px;" id="R" value="#{point.r}"
                                                              min="2" max="8" stepPercent="16.6666666" length="160" showLabels="false" onSlideEnd="drawAllPoints();">
                                                 <ace:ajax event="slide" render="R_text" execute="R" />
-                                                <ace:ajax execute="R" render="table" />
+                                                <ace:ajax execute="R" render="beanTable" />
                                             </ace:sliderEntry>
                                         </td>
                                     </tr>
@@ -98,8 +101,8 @@
                                     <tr >
                                         <td>
                                             <h:commandButton id="validationButton" onclick="if (validateY()) {document.getElementById('form:submit').click()}" styleClass="submitButton" value="ПРОВЕРИТЬ"/>
-                                            <h:commandButton id="submit" action="#{point.addPoint()}" style="display: none" onclick="window.location.reload()">
-                                            <!--    <f:ajax execute="@form" render="beanTable" /> -->
+                                            <h:commandButton id="submit" action="#{point.addPoint()}" style="display: none">
+                                                <f:ajax execute="@form" render="beanTable" />
                                             </h:commandButton>
                                         </td>
                                     </tr>
@@ -115,7 +118,7 @@
 
             <br/>
 
-            <h:panelGroup rendered="#{not empty point.points}">
+            <h:panelGroup rendered="#{not empty point.points}" id="table">
                 <div class="newWindow">
                     <h:outputScript name="scripts/validate.js">
                         drawCanvas('canvas','#{point.r}');
@@ -137,9 +140,6 @@
                                     <h:outputLabel value="&#9989;" rendered="#{item.inArea == true}" />
                                     <h:outputLabel value="&#10060;" rendered="#{item.inArea == false}" />
                                 </td>
-                                <h:outputScript name="scripts/validate.js">
-                                    drawPoint('#{item.x}','#{item.y}','#{item.r}');
-                                </h:outputScript>
                             </tr>
                         </ui:repeat>
                     </table>
