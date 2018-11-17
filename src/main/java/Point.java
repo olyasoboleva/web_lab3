@@ -12,7 +12,7 @@ public class Point implements Serializable{
     double X;
     @Column(name = "Y", nullable = false)
     double Y;
-    @Column(name = "R", nullable = false)
+    @Column(name = "R*2", nullable = false)
     double R;
     @Column(name = "IsInArea", nullable = false)
     boolean isInArea;

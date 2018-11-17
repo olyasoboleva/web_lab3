@@ -123,6 +123,7 @@ table.input_table {
 a {
     color: black;
     text-decoration: none !important;
+
 }
 
 .error {
@@ -149,8 +150,18 @@ a {
 }
 
 #rowX {
-    width: 300px;
+    width: 350px;
     text-align: left;
 }
 
 
+.ui-slider .ui-slider-handle {
+    background-image: url(#{resource[ 'images/slider2.png' ]});
+    background-position: center center;
+    background-repeat: no-repeat;
+    outline: 0 none !important;
+}
+
+.ui-slider {
+    height: 15px;
+}
